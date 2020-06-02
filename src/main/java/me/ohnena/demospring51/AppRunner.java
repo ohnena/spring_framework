@@ -79,7 +79,7 @@ public class AppRunner implements ApplicationRunner {
 
 
         //
-        // #11 Validation Abstraction
+        // #12 Validation Abstraction
         //
         Event event = new Event();
         event.setLimit(-1);
@@ -101,6 +101,12 @@ public class AppRunner implements ApplicationRunner {
         //      프로젝트 생성시 artifact로 스프링validator를 추가하거나, 아니면 pom.xml에서 의존성으로 추가해야한다.
         System.out.println(validator.getClass());
 
+
+
+        //
+        // #13 DataBinding(1/2) PropertyEditor
+        //
+        // OurEventControllerTest 참고.
 
     }
 }
