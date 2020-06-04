@@ -15,3 +15,6 @@
 
 2. Resource 추상화 / Validation 추상화
 
+3. DataBinding 
+* PropertyEditor
+* Converter/Formatter
