@@ -9,11 +9,13 @@ import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebAp
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -44,6 +46,9 @@ public class AppRunner implements ApplicationRunner {
 
     @Value("${app.name}")
     String name;
+
+    @Autowired
+    ConversionService conversionService; //컨버터,포매터를 이용한 데이터 바인딩 용..
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -78,28 +83,32 @@ public class AppRunner implements ApplicationRunner {
 //        System.out.println(resource.getDescription());
 
 
-        //
-        // #12 Validation Abstraction
-        //
-        Event event = new Event();
-        event.setLimit(-1);
-        event.setEmail("ooo");
-        //EventValidator eventValidator = new EventValidator();
-        Errors errors = new BeanPropertyBindingResult(event, "event");
+//        //
+//        // #12 Validation Abstraction
+//        //
+//        Event event = new Event();
+//        event.setLimit(-1);
+//        event.setEmail("ooo");
+//        //EventValidator eventValidator = new EventValidator();
+//        Errors errors = new BeanPropertyBindingResult(event, "event");
+//
+//        //eventValidator.validate(event, errors);
+//        validator.validate(event, errors); // LocalValidatorFactoryBean 빈을 사용하여 validation...
+//
+//        System.out.println(errors.hasErrors());
+//        errors.getAllErrors().forEach(e -> {
+//            System.out.println("====== error code ======");
+//            Arrays.stream(e.getCodes()).forEach(System.out::println);   //에러코드 모두 출력...
+//            System.out.println(e.getDefaultMessage());                  //디폴트 메시지 출력...
+//        });
+//
+//        //주의!) 스프링 2.3부터 LocalValidatorFactoryBean를 디폴트로 제공하지 않는다.
+//        //      프로젝트 생성시 artifact로 스프링validator를 추가하거나, 아니면 pom.xml에서 의존성으로 추가해야한다.
+//        System.out.println(validator.getClass());
 
-        //eventValidator.validate(event, errors);
-        validator.validate(event, errors); // LocalValidatorFactoryBean 빈을 사용하여 validation...
 
-        System.out.println(errors.hasErrors());
-        errors.getAllErrors().forEach(e -> {
-            System.out.println("====== error code ======");
-            Arrays.stream(e.getCodes()).forEach(System.out::println);   //에러코드 모두 출력...
-            System.out.println(e.getDefaultMessage());                  //디폴트 메시지 출력...
-        });
 
-        //주의!) 스프링 2.3부터 LocalValidatorFactoryBean를 디폴트로 제공하지 않는다.
-        //      프로젝트 생성시 artifact로 스프링validator를 추가하거나, 아니면 pom.xml에서 의존성으로 추가해야한다.
-        System.out.println(validator.getClass());
+
 
 
 
@@ -107,6 +116,15 @@ public class AppRunner implements ApplicationRunner {
         // #13 DataBinding(1/2) PropertyEditor
         //
         // OurEventControllerTest 참고.
+
+
+        //
+        // #14 DataBinding(2/2) Converter,Formatter
+        //
+        // OurEventConverter, OurEventFormatter, WebConfig 등 참고...
+        System.out.println(conversionService.getClass().toString());
+        System.out.println(conversionService);
+
 
     }
 }

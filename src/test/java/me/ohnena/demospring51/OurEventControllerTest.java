@@ -17,10 +17,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest//({OurEventFormatter.class, OurEventController.class})
 public class OurEventControllerTest {
     //
-    // 12 데이터바인딩#1 PropertyEditor...
+    // 12 데이터바인딩#1 PropertyEditor... + 13 #2 컨버터,포매터...
     //
 
     @Autowired
@@ -28,10 +28,10 @@ public class OurEventControllerTest {
 
     @Test
     public void getTest() throws Exception {
-        //System.out.println("JUNIT4------------------------------FirstTEST");
         mockMvc.perform(get("/event/1")). //인텔리제이가 get을 못찾는다?
                 andExpect(status().isOk()).
                 andExpect(content().string("1"));
+
 
 
 
