@@ -72,6 +72,9 @@ public class AppRunner implements ApplicationRunner {
     @Value("#{sample.data}")        // 직접 만든 Sample빈으로부터...
     int dataFromBean;
 
+    @Autowired
+    EventService eventService;
+
 
 
 
@@ -173,6 +176,15 @@ public class AppRunner implements ApplicationRunner {
         Expression expression = expressionParser.parseExpression("2 + 5");
         Integer value = expression.getValue(Integer.class);    //내부적으로는 conversionService가 작동하여 데이터바인딩이 이루어진다고...
         System.out.println(value);
+
+
+        /**
+        * #19 스프링 AOP 프록시기반
+        * */
+        System.out.println("Proxy-based-SPRING_AOP >> PRACTICE");
+        eventService.createEvent();
+        eventService.publishEvent();
+        eventService.deleteEvent();
 
     }
 }

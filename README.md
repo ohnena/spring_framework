@@ -12,9 +12,15 @@
 * IoC 컨테이너 7부: MessageSource
 * IoC 컨테이너 8부: ApplicationEventPublisher
 * IoC 컨테이너 9부: ResourceLoader
-
+ 
 2. Resource 추상화 / Validation 추상화
 
 3. DataBinding 
 * PropertyEditor
 * Converter/Formatter
+
+4. SpEL(스프링 Expression Language)
+
+5. 스프링 AOP
+* 개요
+* 프록시기반 AOP
