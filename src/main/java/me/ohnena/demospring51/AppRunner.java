@@ -72,14 +72,19 @@ public class AppRunner implements ApplicationRunner {
     @Value("#{sample.data}")        // 직접 만든 Sample빈으로부터...
     int dataFromBean;
 
-    @Autowired
-    EventService eventService;
-
-
 
 
     @Autowired
     ConversionService conversionService; //컨버터,포매터를 이용한 데이터 바인딩 용..
+
+
+
+    @Autowired
+    EventService eventService; // AOP 테스트용...
+
+
+
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -181,7 +186,7 @@ public class AppRunner implements ApplicationRunner {
         /**
         * #19 스프링 AOP 프록시기반
         * */
-        System.out.println("Proxy-based-SPRING_AOP >> PRACTICE");
+        System.out.println("Proxy-based-SPRING_AOP >> PRACTICE" + eventService.getClass());
         eventService.createEvent();
         eventService.publishEvent();
         eventService.deleteEvent();
