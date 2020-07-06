@@ -82,9 +82,8 @@ public class AppRunner implements ApplicationRunner {
     @Autowired
     EventService eventService; // AOP 테스트용...
 
-
-
-
+    @Autowired
+    EventServiceAboutNull eventServiceAboutNull; //Null관련 Annotation 테스트용...
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -190,6 +189,12 @@ public class AppRunner implements ApplicationRunner {
         eventService.createEvent();
         eventService.publishEvent();
         eventService.deleteEvent();
+
+        /**
+         * #20 Null-Safety (스프링5에 추가된 Null관련 Annotation)
+         */
+        eventServiceAboutNull.createEvent(null);
+
 
     }
 }
